@@ -12,11 +12,14 @@ import FileCopyIcon from "@material-ui/icons/FileCopy"
 import ExpandLessIcon from "@material-ui/icons/ExpandLess"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import AddIcon from "@material-ui/icons/Add"
+import CropSquareIcon from '@material-ui/icons/CropSquare';
 import SidebarOption from "./SidebarOption";
 import db from "./firebase";
 
 function Sidebar() {
     const [channels, setChannels] = useState([])
+
+
 
     useEffect(() => {
         //Run this code once when the sidebar component loads
@@ -51,9 +54,9 @@ function Sidebar() {
         <hr/>
         <SidebarOption Icon={ExpandMoreIcon} title={"Channels"}/>
         <hr/>
-        <SidebarOption Icon={AddIcon} title={"Add Channel"}/>
+        <SidebarOption Icon={AddIcon} addChannelOption={true} title={"Add Channel"}/>
         {channels.map(channel => (
-            <SidebarOption id={channel.id} title={channel.name}/>
+            <SidebarOption Icon={CropSquareIcon} id={channel.id} addChannelOption={false} title={channel.name}/>
         ))}
 
     </div>
