@@ -9,13 +9,22 @@ import db from "./firebase"
 function Chat() {
     const {roomId} = useParams()
     const [roomDetails, setRoomDetails] = useState(null)
-
+    const [roomMessages, setRoomMessages] = useState(null)
     useEffect(() => {
         if (roomId) {
             db.collection('rooms').doc(roomId)
                 .onSnapshot((snapshot) => setRoomDetails(snapshot.data()))
         }
+        db.collection('rooms').doc(roomId)
+            .collection('messages')
+            .orderBy('timestamp', 'asc')
+            .onSnapshot(snapshot => {
+                    setRoomMessages(snapshot.docs.map(doc => doc.data()))
+                }
+            )
     }, [roomId])
+
+    console.log("Messages", roomMessages)
     return <div className="chat">
         <div className="chat_header">
             <div className="chat_headerLeft">

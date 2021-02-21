@@ -2,6 +2,7 @@ import React from 'react';
 import "./SidebarOption.css"
 import {useHistory} from "react-router-dom"
 import db from "./firebase"
+import {onLog} from "firebase";
 
 function SidebarOption({Icon, title, id, addChannelOption}) {
     const history = useHistory();
@@ -18,7 +19,7 @@ function SidebarOption({Icon, title, id, addChannelOption}) {
         if (channelName) {
             db.collection('rooms').add({
                 name: channelName
-            })
+            }).then(r => console.log("Success"))
         }
     }
     return <div className="sidebarOption" onClick={addChannelOption ? addChannel : selectChannel}>
