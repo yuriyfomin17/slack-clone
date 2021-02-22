@@ -14,11 +14,12 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import AddIcon from "@material-ui/icons/Add"
 import CropSquareIcon from '@material-ui/icons/CropSquare';
 import SidebarOption from "./SidebarOption";
+import {useStateValue} from "./StateProvider";
 import db from "./firebase";
 
 function Sidebar() {
     const [channels, setChannels] = useState([])
-
+    const [{user}] = useStateValue()
 
 
     useEffect(() => {
@@ -38,7 +39,7 @@ function Sidebar() {
                 <h2>Clever Programmer</h2>
                 <h3>
                     <FiberManualRecordIcon/>
-                    Yuriy Fomin
+                    {user?.displayName}
                 </h3>
             </div>
             <CreateIcon/>
@@ -56,7 +57,7 @@ function Sidebar() {
         <hr/>
         <SidebarOption Icon={AddIcon} addChannelOption={true} title={"Add Channel"}/>
         {channels.map(channel => (
-            <SidebarOption Icon={CropSquareIcon} id={channel.id} addChannelOption={false} title={channel.name}/>
+            <SidebarOption key={channel.id} Icon={CropSquareIcon} id={channel.id} addChannelOption={false} title={channel.name}/>
         ))}
 
     </div>
